@@ -1,4 +1,4 @@
-404fd72c15583c82ee1856a2c1fcb988 *DESCRIPTION
+198fd7c7c96b176dc3258ca1152804a3 *DESCRIPTION
 0a53e6b24da0dfd0cb60f8d25e5a4750 *NAMESPACE
 8c4d05ff0d8f758a35937da015b8b77a *R/PETseasonality.R
 b58fd8966b692a491dd72ea327b3ad7f *R/aridityIndexThornthwaite.R
@@ -6,10 +6,10 @@ d832d312f756056aff98ccb02b4e57ae *R/climaticMoistureIndex.R
 d834f768d1c08fba35fae8015a780998 *R/continentality.R
 291747c09b775261c37ad0f7838a3c0a *R/dataTypeCheck.R
 dbd13530aa83020af694fd245889ae1e *R/embergerQ.R
-53ff08895c6942e9b527da430f3b8e5a *R/envirem-package.R
+6868c5b0d767c0b0c4f9c50269490eb0 *R/envirem-package.R
 500f37dcae082524b1f73d03f2987944 *R/generateRasters.R
 e87ab41bcea827f9706e332304e01683 *R/growingDegDays.R
-fde4f0f286552fe8784e5f2be5073f92 *R/layerCreation.R
+604d9dfa40ebe4db5079de88ce2dcc1e *R/layerCreation.R
 26da46ff71361f80aaf89fb11747a5de *R/monthCountByTemp.R
 7d5365d8f8add77634a5cbdd77d602e6 *R/monthlyPET.R
 ae7a38a64e486bc5325094242a2389a4 *R/otherTempExtremes.R
@@ -17,9 +17,9 @@ ae7a38a64e486bc5325094242a2389a4 *R/otherTempExtremes.R
 2d029ee7762da1f85a18f7afd0ea4050 *R/petExtremes.R
 fa3b9992e633c7fe2128deec85475d16 *R/split_raster.R
 fb207a907a33909a61d4ebded3b05c7b *R/thermicityIndex.R
-912e37ff429ad594d1fbefe8b22bb4a4 *R/topoWetnessIndex.R
-d273dc055d7e46382f8d703601ed0467 *R/verifyFileStructure.R
-1b09f85f40af8c0ec0e08ac072db308e *inst/CITATION
+8bd68bbe60586292ddf5869edfb7b504 *R/topoWetnessIndex.R
+97e6edea2009b06a0242b9c5ff6c5633 *R/verifyFileStructure.R
+985af9a0ba913eaa3fc0f16b3122b045 *inst/CITATION
 2a03809bcb616f619a8a5eab34352c8a *inst/extdata/bio_1.tif
 113d704e918942de14061b12f53586de *inst/extdata/bio_10.tif
 1c46844cf2717b2860672590a027c04f *inst/extdata/bio_11.tif
@@ -106,7 +106,7 @@ a99a67a9671b311a7578c35e88fd61fc *man/aridityIndexThornthwaite.Rd
 f9e74ae6060e1635f27848662acde19f *man/continentality.Rd
 ffa64fdd52a8ddfd803c42cb54f1d7aa *man/dataTypeCheck.Rd
 27dc8205a80705c74c14054a86fa4c3e *man/embergerQ.Rd
-4404f9d5c9b1ee9a2f65249e7c800989 *man/envirem.Rd
+e3e49858b59c7de4b9019f65e6b98506 *man/envirem.Rd
 192452f18440e4f7c302c08d384711cb *man/generateRasters.Rd
 7f6d2cda986b46f0069459fc0f726e59 *man/growingDegDays.Rd
 7955b256f4e53511a84ca45abfdb9c85 *man/layerCreation.Rd
@@ -117,5 +117,5 @@ ef627ca37fb5e7f7daa2a7c76e88e03b *man/monthCountByTemp.Rd
 664d0b8365b5e192151fb36026905ce6 *man/petExtremes.Rd
 8ff12af182e565e5df291313ca87d64c *man/split_raster.Rd
 631accdd75e51b36541391da840cdf69 *man/thermicityIndex.Rd
-51c8f3752097662aa8a33b29f1fc4918 *man/topoWetnessIndex.Rd
-183dcf45f0c9a01e32c6bd4016646adf *man/verifyFileStructure.Rd
+5708106a2cb6e4145eb8cd78440011e9 *man/topoWetnessIndex.Rd
+1671c15aa6454882a57dcca0ae16b934 *man/verifyFileStructure.Rd
