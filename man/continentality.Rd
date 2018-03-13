@@ -4,12 +4,15 @@
 \alias{continentality}
 \title{Continentality}
 \usage{
-continentality(tmax, tmin)
+continentality(tmax, tmin, tempScale = 1)
 }
 \arguments{
 \item{tmax}{rasterLayer of average temperature of the warmest month}
 
 \item{tmin}{rasterLayer of average temperature of the coldest month}
+
+\item{tempScale}{integer; scaling factor for the temperature data, see \link{envirem} for 
+additional details.}
 }
 \value{
 rasterLayer in units of degrees C.
@@ -21,6 +24,7 @@ Generate Continentality index.
 \code{continentality index = tmax - tmin}
 }
 \examples{
+\dontrun{
 # Find example rasters
 rasterFiles <- list.files(system.file('extdata', package='envirem'), full.names=TRUE)
 env <- stack(rasterFiles)
@@ -40,10 +44,8 @@ temp <- otherTempExtremes(tmean, tmin, tmax)
 meantempWarmest <- temp[['meanTempWarmest']]
 meantempColdest <- temp[['meanTempColdest']]
 
-continentality(meantempWarmest, meantempColdest)
+continentality(meantempWarmest, meantempColdest, tempScale = 10)
 }
-\author{
-Pascal Title
 }
 \references{
 Rivas-Martínez, S. & Rivas-Sáenz, S. “Synoptical Worldwide Bioclimatic 
@@ -57,4 +59,6 @@ Professional Paper 1768}. Reston, VA.
 \seealso{
 \link{thermicityIndex}
 }
-
+\author{
+Pascal Title
+}

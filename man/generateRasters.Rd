@@ -5,9 +5,9 @@
 \title{Execute Layer Creation}
 \usage{
 generateRasters(var, maindir, resName, timeName, outputDir,
-  rasterExt = ".tif", nTiles = 1, overwriteResults = TRUE,
-  outputFormat = "GTiff", tempDir = "~/temp", gdalinfoPath = NULL,
-  gdal_translatePath = NULL)
+  rasterExt = ".tif", nTiles = 1, tempScale = 1,
+  overwriteResults = TRUE, outputFormat = "GTiff", tempDir = "~/temp",
+  gdalinfoPath = NULL, gdal_translatePath = NULL)
 }
 \arguments{
 \item{var}{a vector of variable names to generate, see Details.}
@@ -26,6 +26,9 @@ directory that will be generated.}
 
 \item{nTiles}{the number of tiles to split the rasters when 
 tiling is requested, must be a perfect square}
+
+\item{tempScale}{integer; scaling factor for the temperature data, see \link{envirem} for 
+additional details.}
 
 \item{overwriteResults}{logical, should existing rasters be overwritten}
 
@@ -86,10 +89,9 @@ inferred with \code{\link{dataTypeCheck}}. This will reduce the file size of the
 If the goal is to use these rasters with the standalone Maxent program, we recommend 
 \code{outputFormat = 'EHdr'}.
 }
-\author{
-Pascal Title
-}
 \seealso{
 Naming of rasters in inputDir will be checked with \code{\link{verifyFileStructure}}.
 }
-
+\author{
+Pascal Title
+}

@@ -4,7 +4,7 @@
 \alias{monthlyPET}
 \title{monthly PET}
 \usage{
-monthlyPET(Tmean, RA, TD)
+monthlyPET(Tmean, RA, TD, tempScale = 1)
 }
 \arguments{
 \item{Tmean}{rasterStack of monthly mean temperature}
@@ -12,6 +12,9 @@ monthlyPET(Tmean, RA, TD)
 \item{RA}{rasterStack of monthly extraterrestrial solar radiation}
 
 \item{TD}{rasterStack of monthly temperature range}
+
+\item{tempScale}{integer; scaling factor for the temperature data, see \link{envirem} for 
+additional details.}
 }
 \value{
 rasterStack of monthly PET in mm / month
@@ -20,9 +23,10 @@ rasterStack of monthly PET in mm / month
 Monthly potential evapotranspiration
 }
 \details{
-\code{PET = 0.0023 * RA * (Tmean + 17.8) * TD^0.5}
+\code{PET = 0.0023 * RA * (Tmean + 17.8) * TD ^ 0.5}
 }
 \examples{
+\dontrun{
 # Find example rasters
 rasterFiles <- list.files(system.file('extdata', package='envirem'), full.names=TRUE)
 env <- stack(rasterFiles)
@@ -41,10 +45,8 @@ mintemp <- stack(env[[mintemp]])
 tempRange <- abs(maxtemp - mintemp)
 
 monthlyPET(meantemp, solar, tempRange)
-
 }
-\author{
-Pascal Title
+
 }
 \references{
 Hargreaves, G. L., Hargreaves, G. H., & Riley, J. P. (1985). Irrigation water requirements 
@@ -60,4 +62,6 @@ A Global Analysis of the Hydrologic Dimensions of Climate Change Mitigation thro
 Afforestation/Reforestation. International Water Management Institute Research Report 101}.
 Colombo, Sri Lanka.
 }
-
+\author{
+Pascal Title
+}

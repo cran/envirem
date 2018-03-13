@@ -4,17 +4,19 @@
 ##'of the coldest month, mean temp of the warmest month.
 ##'
 ##' @param meantempStack rasterStack of monthly mean temperature
-
+##'
 ##' @param mintempStack rasterStack of monthly min temperature
 ##'
 ##' @param maxtempStack rasterStack of monthly max temperature
 ##'
 ##'
-##' @return rasterStack of maxTempColdest, minTempWarmest, meanTempColdest, meanTempWarmest, in degrees C * 10.
+##' @return rasterStack of maxTempColdest, minTempWarmest, meanTempColdest, meanTempWarmest, in 
+##' same units as input rasters.
 ##'
 ##' @author Pascal Title
 ##'
 ##' @examples
+##' \dontrun{
 ##' # Find example rasters
 ##' rasterFiles <- list.files(system.file('extdata', package='envirem'), full.names=TRUE)
 ##' env <- stack(rasterFiles)
@@ -30,6 +32,7 @@
 ##' 
 ##' # calculate temperature extremes
 ##' otherTempExtremes(tmean, tmin, tmax)
+##' }
 ##' @export
 
 
@@ -40,7 +43,6 @@ otherTempExtremes <- function(meantempStack, mintempStack, maxtempStack) {
 	meantempStack <- meantempStack[[order(as.numeric(gsub("[a-zA-Z]+_([0-9]+)$", "\\1", names(meantempStack))))]]
 	mintempStack <- mintempStack[[order(as.numeric(gsub("[a-zA-Z]+_([0-9]+)$", "\\1", names(mintempStack))))]]
 	maxtempStack <- maxtempStack[[order(as.numeric(gsub("[a-zA-Z]+_([0-9]+)$", "\\1", names(maxtempStack))))]]
-	
 	
 	# Max temp of coldest month
 	##identify coldest month by mean temp
@@ -56,7 +58,7 @@ otherTempExtremes <- function(meantempStack, mintempStack, maxtempStack) {
 	names(maxTempColdest) <- 'maxTempColdest'
 
 	#Min temp of warmest month
-	##identify coldest month by mean temp
+	##identify warmest month by mean temp
 	## get index of coldest month by cell	
 	warmestMonth <- which.max(meantempStack)
 	minTempWarmest <- raster::raster(warmestMonth)

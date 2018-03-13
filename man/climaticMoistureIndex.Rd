@@ -22,6 +22,7 @@ Generate climatic moisture index.
 \code{1 - PET/P} when \code{P >= PET}
 }
 \examples{
+\dontrun{
 # Find example rasters
 rasterFiles <- list.files(system.file('extdata', package='envirem'), full.names=TRUE)
 env <- stack(rasterFiles)
@@ -47,8 +48,6 @@ annualPET <- sum(pet)
 
 climaticMoistureIndex(env[['bio_12']], annualPET)
 }
-\author{
-Pascal Title
 }
 \references{
 Willmott, C. & Feddema, J. (1992). A More Rational Climatic Moisture Index. 
@@ -58,4 +57,6 @@ Vörösmarty, C.J., Douglas, E.M., Green, P.A. & Revenga, C. (2005). Geospatial
 Indicators of Emerging Water Stress: An Application to Africa. 
 \emph{AMBIO: A Journal of the Human Environment}, \strong{34}, 230-236.
 }
-
+\author{
+Pascal Title
+}

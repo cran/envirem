@@ -19,6 +19,7 @@ Seasonality of potential evapotranspiration
 PET seasonality = 100 * standard deviation of monthly PET.
 }
 \examples{
+\dontrun{
 # Find example rasters
 rasterFiles <- list.files(system.file('extdata', package='envirem'), full.names=TRUE)
 env <- stack(rasterFiles)
@@ -41,8 +42,6 @@ pet <- monthlyPET(meantemp, solar, tempRange)
 
 PETseasonality(pet)
 }
-\author{
-Pascal Title
 }
 \references{
 Metzger, M.J., Bunce, R.G.H., Jongman, R.H.G., Sayre, R., Trabucco, A. & Zomer, R. (2013). 
@@ -53,4 +52,6 @@ biodiversity research and monitoring. \emph{Global Ecology and Biogeography},
 \seealso{
 \link{monthlyPET}
 }
-
+\author{
+Pascal Title
+}
