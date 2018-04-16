@@ -25,7 +25,7 @@ Generates mean monthly PET for the warmest, coldest, wettest and driest
 3 consecutive months.
 }
 \examples{
-\dontrun{
+\donttest{
 # Find example rasters
 rasterFiles <- list.files(system.file('extdata', package='envirem'), full.names=TRUE)
 env <- stack(rasterFiles)
@@ -46,7 +46,7 @@ tempRange <- abs(maxtemp - mintemp)
 precip <- stack(env[[precip]])
 
 # get monthly PET
-pet <- monthlyPET(meantemp, solar, tempRange, tempScale = 10)
+pet <- monthlyPET(meantemp, solar, tempRange)
 
 petExtremes(pet, precip, meantemp)
 }

@@ -22,7 +22,7 @@ Generate climatic moisture index.
 \code{1 - PET/P} when \code{P >= PET}
 }
 \examples{
-\dontrun{
+\donttest{
 # Find example rasters
 rasterFiles <- list.files(system.file('extdata', package='envirem'), full.names=TRUE)
 env <- stack(rasterFiles)

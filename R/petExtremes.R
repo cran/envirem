@@ -21,7 +21,7 @@
 ##' 
 ##' @author Pascal Title
 ##' @examples
-##' \dontrun{
+##' \donttest{
 ##' # Find example rasters
 ##' rasterFiles <- list.files(system.file('extdata', package='envirem'), full.names=TRUE)
 ##' env <- stack(rasterFiles)
@@ -42,7 +42,7 @@
 ##' precip <- stack(env[[precip]])
 ##' 
 ##' # get monthly PET
-##' pet <- monthlyPET(meantemp, solar, tempRange, tempScale = 10)
+##' pet <- monthlyPET(meantemp, solar, tempRange)
 ##'
 ##' petExtremes(pet, precip, meantemp)
 ##' }

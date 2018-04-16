@@ -59,7 +59,7 @@ thermicityIndex \cr
 If \code{var = 'all'}, then all of the variables will be generated.
 }
 \examples{
-\dontrun{
+\donttest{
 # Find example rasters
 rasterFiles <- list.files(system.file('extdata', package='envirem'), full.names=TRUE)
 
@@ -70,7 +70,7 @@ worldclim <- stack(setdiff(rasterFiles, solradFiles))
 solar <- stack(solradFiles)
 
 # generate all possible envirem variables
-layerCreation(worldclim, solar, var='all')
+layerCreation(worldclim, solar, var='all', tempScale = 10)
 }
 }
 \seealso{
