@@ -11,8 +11,8 @@ Generation of bioclimatic rasters that are complementary to the WorldClim datase
 \details{
 Package: envirem\cr
 Type: Package\cr
-Version: 1.3\cr
-Date: 2018-04-16\cr
+Version: 1.2\cr
+Date: 2018-03-06\cr
 License: GPL-2 | GPL-3\cr
 
 \strong{NOTE}: Temperature rasters are now assumed by default to be in degrees C. However, 

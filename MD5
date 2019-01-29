@@ -1,4 +1,4 @@
-051d511676a7997610363da0b7904f04 *DESCRIPTION
+04bd7aa4c2ab657bfd9560101f04d5d2 *DESCRIPTION
 0a53e6b24da0dfd0cb60f8d25e5a4750 *NAMESPACE
 b9e9e9c0de7df2625095b5f3485cff7b *R/PETseasonality.R
 c875c806ffb66a77b79d2605074bc39b *R/aridityIndexThornthwaite.R
@@ -6,9 +6,9 @@ c875c806ffb66a77b79d2605074bc39b *R/aridityIndexThornthwaite.R
 9e1638a18511adfbfeab2f3f0be0c17a *R/continentality.R
 291747c09b775261c37ad0f7838a3c0a *R/dataTypeCheck.R
 0901ae9e980a5feaab7a0184d94f7671 *R/embergerQ.R
-bf37ba738104d7d71f5ed44fb92f1ce8 *R/envirem-package.R
+7184ce014a90ee7698549382e4e091e8 *R/envirem-package.R
 8b9cc36e4a35df77d0cff6cfe0735817 *R/generateRasters.R
-0c8569b36b8091576c26432a2a60a4bb *R/growingDegDays.R
+0b59a086dbfb5a99e9d90ec17c6a5355 *R/growingDegDays.R
 17bde0edf6ad00a5b61a3dde41dc4f3a *R/layerCreation.R
 d98e71ecfe772f42e0533e10dd30c212 *R/monthCountByTemp.R
 92473652b7649b437693309ab68c440a *R/monthlyPET.R
@@ -107,7 +107,7 @@ e31d5f91adf526946059650a5bbf5be2 *man/climaticMoistureIndex.Rd
 f0eb6fbb08581f40a7a42696e75d73d8 *man/continentality.Rd
 747e999a7b34897b529930035ffb34ce *man/dataTypeCheck.Rd
 52e6c8adb66e3a9612ee1ce3db98b8ad *man/embergerQ.Rd
-f13f7614f049fe1359144a26ced04ce5 *man/envirem.Rd
+a0d633cd32196eb604f8995019464c76 *man/envirem.Rd
 06fee5010de24a259c90e8e63caeec6e *man/generateRasters.Rd
 6d12f3da53a8f1c6b5797b34f7bf76f8 *man/growingDegDays.Rd
 da567ee04779a0edc9f2ab1d0f2c15f0 *man/layerCreation.Rd
