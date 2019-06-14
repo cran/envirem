@@ -1,8 +1,8 @@
 Package: envirem
 Type: Package
 Title: Generation of ENVIREM Variables
-Version: 1.4
-Date: 2019-01-29
+Version: 1.5
+Date: 2019-06-14
 Author: Pascal O. Title, Jordan B. Bemmels
 Maintainer: Pascal Title <ptitle@umich.edu>
 Depends: raster
@@ -15,8 +15,8 @@ URL: http://envirem.github.io
 BugReports: https://github.com/ptitle/envirem/issues
 NeedsCompilation: yes
 Encoding: UTF-8
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
 ByteCompile: true
-Packaged: 2019-01-29 18:35:15 UTC; pascaltitle
+Packaged: 2019-06-14 14:21:44 UTC; pascaltitle
 Repository: CRAN
-Date/Publication: 2019-01-29 18:50:03 UTC
+Date/Publication: 2019-06-14 15:10:03 UTC
