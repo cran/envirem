@@ -4,12 +4,16 @@
 \alias{aridityIndexThornthwaite}
 \title{aridityIndexThornthwaite}
 \usage{
-aridityIndexThornthwaite(precipStack, PETstack)
+aridityIndexThornthwaite(precipStack, PETstack, precipScale = 1)
 }
 \arguments{
 \item{precipStack}{rasterStack of monthly precipitation.}
 
-\item{PETstack}{rasterStack of monthly potential evapotranspiration.}
+\item{PETstack}{rasterStack of monthly potential evapotranspiration. 
+Layer names are assumed to end in the month number.}
+
+\item{precipScale}{integer; scaling factor for the precipitation data, see \link{envirem}
+for additional details.}
 }
 \value{
 RasterLayer, unitless
@@ -47,7 +51,13 @@ pet <- monthlyPET(meantemp, solar, tempRange)
 precip <- grep('prec', names(env), value=TRUE)
 precip <- stack(env[[precip]])
 
+# set up naming scheme - only precip is different from default
+assignNames(precip = 'prec_##')
+
 aridityIndexThornthwaite(precip, pet)
+
+# set back to defaults
+assignNames(reset = TRUE)
 }
 
 }

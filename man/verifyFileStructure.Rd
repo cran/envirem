@@ -24,26 +24,44 @@ functions to work properly.
 \details{
 This function searches for the following
 in the directory specified by \code{path}:
+		
+12 precipitation rasters
 
-19 bioclimatic variables named as bio_1.tif
-	
-12 precipitation rasters named as prec_1.tif
+12 min temperature rasters
 
-12 min temperature rasters named as tmin_1.tif
+12 max temperature rasters
 
-12 max temperature rasters named as tmax_1.tif
+12 mean temperature rasters [optional]
 
-12 mean temperature rasters named as tmean_1.tif [optional]
+12 solar radiation rasters
 
-12 solar radiation rasters named as et_solrad_1.tif
+The naming scheme will be checked against the one 
+defined via the custom naming environment. See \code{link{?assignNames}}
+for additional details.
+
+An equivalent function for checking the names of rasters in R can be 
+found at \code{\link{verifyRasterNames}}. 
+
+The naming of the variables is defined by default as shown above. 
+Changes to the naming scheme can easily be made. See \code{link{?assignNames}}
+for more information.
 
 If mean temperature rasters are not detected, the raster creation functions
 will create mean temperature by taking the mean of the min and max.
 }
 \examples{
+rasterPath <- system.file('extdata', package='envirem')
+list.files(rasterPath)
+
+# Assign naming scheme
+assignNames(precip = 'prec_##')
+varnames()
+
 # As there are no problems with these files, the list of files 
 # will be returned.
-verifyFileStructure(system.file('extdata', package='envirem'))
+verifyFileStructure(rasterPath)
+
+assignNames(reset = TRUE)
 }
 \author{
 Pascal Title

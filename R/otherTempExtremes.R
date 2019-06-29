@@ -1,7 +1,7 @@
 ##' @title Temperature Extremes
 ##'
 ##' @description Generates max temp of the coldest month, min temp of the warmest month, mean temp
-##'of the coldest month, mean temp of the warmest month.
+##'		of the coldest month, mean temp of the warmest month.
 ##'
 ##' @param meantempStack rasterStack of monthly mean temperature
 ##'
@@ -40,9 +40,9 @@
 otherTempExtremes <- function(meantempStack, mintempStack, maxtempStack) {
 	
 	# enforce ordering
-	meantempStack <- meantempStack[[order(as.numeric(gsub("[a-zA-Z]+_([0-9]+)$", "\\1", names(meantempStack))))]]
-	mintempStack <- mintempStack[[order(as.numeric(gsub("[a-zA-Z]+_([0-9]+)$", "\\1", names(mintempStack))))]]
-	maxtempStack <- maxtempStack[[order(as.numeric(gsub("[a-zA-Z]+_([0-9]+)$", "\\1", names(maxtempStack))))]]
+	meantempStack <- meantempStack[[order(as.numeric(gsub(paste0(.var$tmean, '([0-9]+)', .var$tmean_post), "\\1", names(meantempStack))))]]
+	mintempStack <- mintempStack[[order(as.numeric(gsub(paste0(.var$tmin, '([0-9]+)', .var$tmin_post), "\\1", names(mintempStack))))]]
+	maxtempStack <- maxtempStack[[order(as.numeric(gsub(paste0(.var$tmax, '([0-9]+)', .var$tmax_post), "\\1", names(maxtempStack))))]]
 	
 	# Max temp of coldest month
 	##identify coldest month by mean temp

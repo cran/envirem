@@ -4,7 +4,11 @@
 ##'
 ##' @param precipStack rasterStack of monthly precipitation.
 ##'
-##' @param PETstack rasterStack of monthly potential evapotranspiration.
+##' @param PETstack rasterStack of monthly potential evapotranspiration. 
+##' 	Layer names are assumed to end in the month number. 
+##'
+##'	@param precipScale integer; scaling factor for the precipitation data, see \link{envirem}
+##' 	for additional details. 
 ##'
 ##' @details \code{Thornthwaite aridity index = 100d / n}
 ##'	where d = sum of monthly differences between precipitation and PET for months where precip < PET
@@ -44,18 +48,33 @@
 ##'
 ##' precip <- grep('prec', names(env), value=TRUE)
 ##' precip <- stack(env[[precip]])
+##' 
+##' # set up naming scheme - only precip is different from default
+##' assignNames(precip = 'prec_##')
 ##'
 ##' aridityIndexThornthwaite(precip, pet)
+##'
+##' # set back to defaults
+##' assignNames(reset = TRUE)
 ##' }
 ##' 
 ##' @export
 
 
-aridityIndexThornthwaite <- function(precipStack, PETstack) {
+aridityIndexThornthwaite <- function(precipStack, PETstack, precipScale = 1) {
+	
+	# confirm naming scheme
+	if (!all(paste0(.var$precip, 1:12, .var$precip_post) %in% names(precipStack)) & !all(paste0(.var$precip, sprintf("%02d", 1:12), .var$precip_post) %in% names(precipStack))) {
+		stop('Defined naming scheme does not match layer names of precipStack.')
+	}
 
 	#enforce ordering of stack according to numbers in names
-	precipStack <- precipStack[[order(as.numeric(gsub("[a-zA-Z]+_([0-9]+)$", "\\1", names(precipStack))))]]
+	precipStack <- precipStack[[order(as.numeric(gsub(paste0(.var$precip, '([0-9]+)', .var$precip_post), "\\1", names(precipStack))))]]
 	PETstack <- PETstack[[order(as.numeric(gsub("[a-zA-Z]+_([0-9]+)$", "\\1", names(PETstack))))]]
+
+	if (precipScale != 1) {
+		precipStack <- precipStack / precipScale
+	}
 
 	#create receiving rasters
 	d <- precipStack[[1]]

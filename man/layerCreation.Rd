@@ -4,11 +4,12 @@
 \alias{layerCreation}
 \title{Creates all layers}
 \usage{
-layerCreation(masterstack, solradstack, var, tempScale = 1)
+layerCreation(masterstack, solradstack, var, tempScale = 1,
+  precipScale = 1)
 }
 \arguments{
-\item{masterstack}{rasterStack containing all precipitation, 
-min temperature, max temperature and bioclimatic variables}
+\item{masterstack}{rasterStack containing all monthly precipitation, 
+min temperature, max temperature, and optionally mean temperature rasters.}
 
 \item{solradstack}{rasterStack of monthly solar radiation}
 
@@ -16,6 +17,9 @@ min temperature, max temperature and bioclimatic variables}
 
 \item{tempScale}{integer; scaling factor for the temperature data, see \link{envirem} for 
 additional details.}
+
+\item{precipScale}{integer; scaling factor for the precipitation data, see \link{envirem}
+for additional details.}
 }
 \value{
 rasterStack
@@ -69,8 +73,14 @@ solradFiles <- grep('solrad', rasterFiles, value=TRUE)
 worldclim <- stack(setdiff(rasterFiles, solradFiles))
 solar <- stack(solradFiles)
 
+# set up naming scheme - only precip is different from default
+assignNames(precip = 'prec_##')
+
 # generate all possible envirem variables
 layerCreation(worldclim, solar, var='all', tempScale = 10)
+
+# set back to defaults
+assignNames(reset = TRUE)
 }
 }
 \seealso{
