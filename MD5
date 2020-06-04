@@ -1,6 +1,6 @@
-ac9140d67b9b06eef012cba9b05977b7 *DESCRIPTION
-50c2d2550c39804562a265d692e6aa34 *NAMESPACE
-25246da4a3242f5040c69ae9ce5f0f59 *R/ETsolradRasters.R
+3a28ec22e30ce011e974896c8a4cd9a4 *DESCRIPTION
+1494185b1ae76539ef59bff7844c4d2d *NAMESPACE
+be1d0d961d06a469b9bcec81dd97598c *R/ETsolradRasters.R
 b9e9e9c0de7df2625095b5f3485cff7b *R/PETseasonality.R
 3a599df11c449a47b3a52b73655baf66 *R/aridityIndexThornthwaite.R
 8400d90cfa25fe14f84a4bf34770b9ae *R/assignNames.R
@@ -8,8 +8,8 @@ b9e9e9c0de7df2625095b5f3485cff7b *R/PETseasonality.R
 9e1638a18511adfbfeab2f3f0be0c17a *R/continentality.R
 fc0bd5219959a4006588f102efc2c572 *R/createEnv.R
 e4525bb773c2f856d0948996b0bf84ab *R/dataTypeCheck.R
-f346bc5398d2918a660da6d6357a963f *R/embergerQ.R
-4af6154c76a9a20ac9060f25f6982036 *R/envirem-package.R
+60c013f5cf80369cb7f6e144e4aec705 *R/embergerQ.R
+eda6cdf9208ea90763c7f3ec568cbeb4 *R/envirem-package.R
 cf2fe1138e296f49e44cdb7ff97b5fde *R/generateRasters.R
 0b59a086dbfb5a99e9d90ec17c6a5355 *R/growingDegDays.R
 a143d0ffe4a3af9344d5e5f57811f1a3 *R/layerCreation.R
@@ -21,7 +21,7 @@ b4712a565f64f1171e8056c78be1255b *R/otherTempExtremes.R
 43cc60063ac28500f7c03d6877bbeb32 *R/split_raster.R
 3ef795b28192df7ea664c008f79d9753 *R/thermicityIndex.R
 18766d9f4f18b6342ce2593c75bbbcae *R/topoWetnessIndex.R
-9af8c8fd337076b4ab1a99c3ff27c0f3 *R/varnames.R
+1b4f4ad9d3ba45db3df59dd4492df23e *R/varnames.R
 1d7477174714fdb30c27e7da19f20ddd *R/verifyFileStructure.R
 63fbe6132cf48ee75a2a3de5ded41e5a *R/verifyRasterNames.R
 87319c0b5db192df41b60a6d2a3c04ea *R/zzz.R
@@ -106,15 +106,15 @@ eec4534b343e99ff0e2bf597f69ed42c *inst/extdata/tmin_6.tif
 bf5d402f06a9321fc144793fcbadbc2e *inst/extdata/tmin_7.tif
 bd7ca8f318cc35b4735018306c617426 *inst/extdata/tmin_8.tif
 1a1aa01a73dfb05e67f713981a9c884b *inst/extdata/tmin_9.tif
-de0189e9a3c795bb5e7aa9f5bdbaf7f8 *man/ETsolradRasters.Rd
+62e46c3f2fc57f17e02fd59c0f55cc1f *man/ETsolradRasters.Rd
 90cd3a8848aed1572d89d1fc413cf44c *man/PETseasonality.Rd
 a36307d2a92550a098cba300b40d9f07 *man/aridityIndexThornthwaite.Rd
 1610e1f2a8bb2d8fb31c723bab3eea7c *man/assignNames.Rd
 7872b2620ef1ee860daac31397f003b3 *man/climaticMoistureIndex.Rd
 f0eb6fbb08581f40a7a42696e75d73d8 *man/continentality.Rd
 dca2f0e8c63a39407ccb7e0e30f97449 *man/dataTypeCheck.Rd
-76ba6757d7dab791b089a7ebf1cb2dac *man/embergerQ.Rd
-fce10c629eca2f3fddbbb1717ee65eca *man/envirem.Rd
+77f37b868c7be2768dfec549aaabae98 *man/embergerQ.Rd
+118b0efcabd94c0d5be5e917912bbe8b *man/envirem.Rd
 d5357e43f38f414187241ed79fc72bd9 *man/generateRasters.Rd
 1cddf982d2d11571bc55650566a802ba *man/growingDegDays.Rd
 ed628c4b070db38f2a4df93c140e2096 *man/layerCreation.Rd
@@ -123,7 +123,7 @@ ed628c4b070db38f2a4df93c140e2096 *man/layerCreation.Rd
 ff5f23f54affc3663a4a488c20b1e3b0 *man/otherTempExtremes.Rd
 a1dbb809dbda48d868cf3ccb8b432d19 *man/pacificCentric.Rd
 2ecc9936ab249a83cafaa6a8d35a8fc3 *man/petExtremes.Rd
-6dff948a8411c15f3a2610e4ac88077c *man/split_raster.Rd
+e8e1965a97f01e81dd3dd8d49f008ce4 *man/split_raster.Rd
 b38cb96234e5c96968973039045ddbf1 *man/thermicityIndex.Rd
 7b7c38d197ee4a307350e65789b4ed88 *man/topoWetnessIndex.Rd
 4e1b322578e755287e0c3db4994812f5 *man/varnames.Rd
