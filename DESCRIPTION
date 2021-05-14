@@ -1,10 +1,10 @@
 Package: envirem
 Type: Package
 Title: Generation of ENVIREM Variables
-Version: 2.2
-Date: 2020-06-03
+Version: 2.3
+Date: 2021-05-13
 Author: Pascal O. Title, Jordan B. Bemmels
-Maintainer: Pascal Title <ptitle@iu.edu>
+Maintainer: Pascal Title <pascal.title@stonybrook.edu>
 Depends: raster, palinsol
 Imports: RSAGA, sf, methods, knitr
 Suggests: rgdal
@@ -14,9 +14,8 @@ URL: http://envirem.github.io
 BugReports: https://github.com/ptitle/envirem/issues
 NeedsCompilation: yes
 Encoding: UTF-8
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 ByteCompile: true
-LazyData: true
-Packaged: 2020-06-03 22:18:22 UTC; pascaltitle
+Packaged: 2021-05-14 00:06:31 UTC; pascaltitle
 Repository: CRAN
-Date/Publication: 2020-06-04 04:20:02 UTC
+Date/Publication: 2021-05-14 07:40:19 UTC

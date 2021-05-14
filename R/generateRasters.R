@@ -58,6 +58,8 @@
 ##' growingDegDays5 \cr
 ##' maxTempColdest \cr
 ##' minTempWarmest \cr
+##' meanTempColdest \cr
+##' meanTempWarmest \cr
 ##' monthCountByTemp10 \cr
 ##' PETColdestQuarter \cr
 ##' PETDriestQuarter \cr
@@ -103,7 +105,7 @@
 
 generateRasters <- function(var, maindir, prefix = '', outputDir = './', rasterExt = '.tif', nTiles = 1, tempScale = 1, precipScale = 1, overwriteResults = TRUE, outputFormat = 'GTiff', tempDir = '~/temp', gdalinfoPath = NULL, gdal_translatePath = NULL, useCompression = TRUE) {
 
-	allvar <- c("annualPET", "aridityIndexThornthwaite", "climaticMoistureIndex", "continentality", "embergerQ", "growingDegDays0", "growingDegDays5", "maxTempColdest", "minTempWarmest", "monthCountByTemp10", "PETColdestQuarter", "PETDriestQuarter", "PETseasonality", "PETWarmestQuarter", "PETWettestQuarter", "thermicityIndex")
+	allvar <- c("annualPET", "aridityIndexThornthwaite", "climaticMoistureIndex", "continentality", "embergerQ", "growingDegDays0", "growingDegDays5", "maxTempColdest", "minTempWarmest", "meanTempColdest", "meanTempWarmest", "monthCountByTemp10", "PETColdestQuarter", "PETDriestQuarter", "PETseasonality", "PETWarmestQuarter", "PETWettestQuarter", "thermicityIndex")
 
 	if (class(var) == 'character') {
 		if (length(var) == 1) {
@@ -122,6 +124,10 @@ generateRasters <- function(var, maindir, prefix = '', outputDir = './', rasterE
 		}
 		stop('\nVariable names must match official set.')
 	}
+	
+	solradVar <- c('annualPET','PETseasonality','aridityIndexThornthwaite','climaticMoistureIndex','PETColdestQuarter','PETWarmestQuarter','PETWettestQuarter','PETDriestQuarter')
+	needsSolRad <- ifelse(any(var %in% solradVar), TRUE, FALSE)
+
 	
 	# check results directory
 	outputDir <- gsub('/?$', '/', outputDir)
@@ -147,7 +153,7 @@ generateRasters <- function(var, maindir, prefix = '', outputDir = './', rasterE
 		}
 	}
 
-	outputExt <- c(raster='.grd', ascii='.asc', SAGA='.sdat', IDRISI='.rst', CDF='.nc', GTiff='.tif', ENVI='.envi', EHdr='.bil', HFA='.img')
+	outputExt <- c(raster = '.grd', ascii = '.asc', SAGA = '.sdat', IDRISI = '.rst', CDF = '.nc', GTiff = '.tif', ENVI = '.envi', EHdr = '.bil', HFA = '.img')
 	outputExt <- outputExt[outputFormat]
 	outputFiles <- paste0(outputDir, prefix, var, outputExt)
 	if (any(basename(outputFiles) %in% list.files(outputDir)) & overwriteResults == FALSE) {
@@ -164,15 +170,21 @@ generateRasters <- function(var, maindir, prefix = '', outputDir = './', rasterE
 		# no tiling
 
 		#load rasters
-		files <- verifyFileStructure(path = maindir, returnFileNames = TRUE, rasterExt = rasterExt)
-
-		clim <- raster::stack(files)
-
-		#pull out solar radiation rasters and create new stack
-		solrad <- clim[[grep(paste0(.var$solrad, '\\d\\d?', .var$solrad_post), names(clim))]]
-
-		clim <- raster::dropLayer(clim, names(solrad))
-
+		if (needsSolRad) {
+			files <- verifyFileStructure(path = maindir, returnFileNames = TRUE, includeSolRad = TRUE, rasterExt = rasterExt)
+			if (all(is.null(files))) stop('Something wrong with input files.')
+			clim <- raster::stack(files)
+	
+			#pull out solar radiation rasters and create new stack
+			solrad <- clim[[grep(paste0(.var$solrad, '\\d\\d?', .var$solrad_post), names(clim))]]	
+			clim <- raster::dropLayer(clim, names(solrad))
+		} else {
+			files <- verifyFileStructure(path = maindir, returnFileNames = TRUE, includeSolRad = FALSE, rasterExt = rasterExt)
+			if (all(is.null(files))) stop('Something wrong with input files.')
+			clim <- raster::stack(files)
+			solrad <- NULL
+		}
+		
 		res <- layerCreation(masterstack = clim, solradstack = solrad, var = var, tempScale = tempScale, precipScale = precipScale)
 		
 		# write to disk
@@ -200,9 +212,15 @@ generateRasters <- function(var, maindir, prefix = '', outputDir = './', rasterE
 		dir.create(tempDir)
 
 		#take each raster and generate tiles, s per raster (ending with tile1, tile2, tile3, tile4)
-		files <- verifyFileStructure(path = maindir, returnFileNames = TRUE, rasterExt = rasterExt)	
-
+		if (needsSolRad) {
+			files <- verifyFileStructure(path = maindir, returnFileNames = TRUE, includeSolRad = TRUE, rasterExt = rasterExt)
+		} else {
+			files <- verifyFileStructure(path = maindir, returnFileNames = TRUE, includeSolRad = FALSE, rasterExt = rasterExt)
+		}
+		if (all(is.null(files))) stop('Something wrong with input files.')
+				
 		message('\tSplitting rasters into tiles...')
+		
 		for (i in 1:length(files)) {
 			split_raster(files[i], s = s, outputDir = tempDir, gdalinfoPath = gdalinfoPath, gdal_translatePath = gdal_translatePath)
 		}
@@ -218,11 +236,14 @@ generateRasters <- function(var, maindir, prefix = '', outputDir = './', rasterE
 			clim <- raster::stack(list.files(path = tempDir, pattern = paste(tilename, '.tif$', sep=''), full.names = TRUE))
 			names(clim) <- gsub(tilename, '', names(clim))
 
-			#pull out solar radiation rasters and create new stack
-			solrad <- clim[[grep(.var$solrad, names(clim))]]
-
-			clim <- raster::dropLayer(clim, grep(.var$solrad, names(clim)))
-
+			if (needsSolRad) {
+				#pull out solar radiation rasters and create new stack
+				solrad <- clim[[grep(.var$solrad, names(clim))]]
+				clim <- raster::dropLayer(clim, grep(.var$solrad, names(clim)))
+			} else {
+				solrad <- NULL
+			}
+			
 			res <- layerCreation(masterstack = clim, solradstack = solrad, var = var, tempScale = tempScale, precipScale = precipScale)
 			names(res) <- paste0(names(res), tilename)
 
