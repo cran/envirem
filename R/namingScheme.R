@@ -3,10 +3,10 @@
 ##' as modified by the user.
 ##' @details See \code{\link{assignNames}}.
 ##' @examples
-##' varnames()
+##' namingScheme()
 ##' @export
 
-varnames <- function() {
+namingScheme <- function() {
 	
 	# cat('\n')
 	# cat('bio:\t', .var$bio, '\t\t\t##\t', .var$bio_post, '\n')
@@ -25,10 +25,10 @@ varnames <- function() {
 	# print(sprintf("%-7s %-11s %-3s %s", 'solrad:', .var$solrad, '##', .var$solrad_post))
 	# cat('\nto change these values, see ?assignNames.')
 		
-	vartable <- cbind.data.frame(variable = c('tmin:','tmax:','tmean:','precip:','solrad:'), 
-		prefix = c(.var$tmin, .var$tmax, .var$tmean, .var$precip, .var$solrad),
-		index = rep('##', 5),
-		suffix = c(.var$tmin_post, .var$tmax_post, .var$tmean_post, .var$precip_post, .var$solrad_post))
+	vartable <- cbind.data.frame(variable = c('tmin:', 'tmax:', 'tmean:', 'precip:', 'solrad:', 'pet:'), 
+		prefix = c(.var$tmin, .var$tmax, .var$tmean, .var$precip, .var$solrad, .var$pet),
+		index = rep('##', 6),
+		suffix = c(.var$tmin_post, .var$tmax_post, .var$tmean_post, .var$precip_post, .var$solrad_post, .var$pet_post))
 		
 
 	print(knitr::kable(vartable, format = 'pandoc', align = c('l', 'l', 'c', 'l')))

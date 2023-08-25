@@ -30,7 +30,7 @@
 ##' \donttest{
 ##' # Find example rasters
 ##' rasterFiles <- list.files(system.file('extdata', package='envirem'), full.names=TRUE)
-##' env <- stack(rasterFiles)
+##' env <- rast(rasterFiles)
 ##'
 ##' # identify appropriate layers
 ##' tmean <- grep('tmean', names(env))
@@ -60,3 +60,34 @@ continentality <- function(tmax, tmin, tempScale = 1) {
 	names(res) <- 'continentality'
 	return(res)
 }
+
+
+# # # calculation according to Conrad 1946
+# continentality <- function(tmax, tmin, tempScale = 1, conrad = FALSE) {
+	# res <- tmax - tmin
+	# res <- res / tempScale
+	
+	# if (conrad) {
+		# lats <- terra::crds(res, df = TRUE, na.rm = FALSE)
+		# lats <- terra::vect(lats, geom = colnames(lats), crs = terra::crs(res))
+		# if (!terra::is.lonlat(res)) {
+			# lats <- terra::project(lats, 'EPSG:4326')
+		# }
+		# lats <- abs(terra::crds(lats)[,2])
+		# lats <- sin(lats + 10)
+		
+		# res <- ((1.7 * as.numeric(terra::values(res))) / lats) - 14
+		# continentality <- tmax[[1]]
+		# terra::values(continentality) <- res
+
+		# names(continentality) <- 'continentality'
+		# return(continentality)
+
+	# } else {
+		# names(res) <- 'continentality'
+		# return(res)		
+	# }
+# }
+
+
+

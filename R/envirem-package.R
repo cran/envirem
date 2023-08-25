@@ -5,7 +5,7 @@
 ##' 
 ##' @author Pascal O. Title, Jordan B. Bemmels
 ##' 
-##' @references \url{http://envirem.github.io}
+##' @references \url{https://github.com/ptitle/envirem}
 ##'
 ##' Title, P.O., Bemmels, J.B. 2018. ENVIREM: An expanded set of bioclimatic and topographic variables increases flexibility and improves performance of ecological niche modeling. Ecography 41:291–307.
 ##' 
@@ -37,15 +37,15 @@
 ##' and modify the input rasters yourself. 
 ##'
 ##'
-##' The main function for generating ENVIREM rasters is \code{\link{generateRasters}}. 
-##' A complete tutorial of this R package can be found at \url{http://envirem.github.io}. 
+##' The main function for generating ENVIREM rasters is \code{\link{generateEnvirem}}. 
+##' A complete tutorial of this R package can be found at \url{https://ptitle.github.io/envirem/}. 
 ##' 
 ##' @name envirem
 ##' @docType package
 ##' @keywords package
 ##'
-##' @import raster RSAGA palinsol
+##' @import terra palinsol
 ##' @importFrom stats sd
 ##' @importFrom knitr kable
 ##'
-NULL
+"_PACKAGE"

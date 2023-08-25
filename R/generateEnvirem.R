@@ -1,13 +1,14 @@
-##' @title Creates all layers
+##' @title Generate ENVIREM rasters
 ##'
-##' @description Generates all rasterLayers for one particular input dataset.
-##' For the distinction between this function and \code{\link{generateRasters}}, 
-##' see \code{Details}. 
+##' @description Generates rasters from an input dataset.
 ##'
 ##' @param masterstack rasterStack containing all monthly precipitation, 
 ##' min temperature, max temperature, and optionally mean temperature rasters.
 ##'
 ##' @param solradstack rasterStack of monthly solar radiation, can be \code{NULL} if not needed.
+##'
+##' @param monthPET rasterStack of monthly potential evapotranspiration. If \code{NULL}, 
+##' 	will be calculated internally.
 ##'
 ##' @param var vector of names of variables to generate, see Details.
 ##'
@@ -17,16 +18,9 @@
 ##'	@param precipScale integer; scaling factor for the precipitation data, see \link{envirem}
 ##' 	for additional details. 
 ##' 
-##' @details The function \code{\link{verifyFileStructure}} should be used to 
+##' @details The function \code{\link{verifyRasterNames}} should be used to 
 ##' verify that the appropriate rasters are present in \code{masterstack}.
 ##' 
-##' This function is called internally by \code{\link{generateRasters}}. 
-##' 
-##' The function \code{layerCreation} will generate envirem rasters from input R 
-##' objects (rasterStacks) and will return the result as an R object. In contrast, 
-##' the function \code{\link{generateRasters}} reads in input rasters from a specified directory, 
-##' splits input rasters into tiles if necessary, internally calls 
-##' \code{layerCreation} and writes the result to file. 
 ##' 
 ##'	Possible variables to generate include:\cr
 ##' \cr
@@ -56,7 +50,6 @@
 ##'
 ##' @author Pascal Title
 ##'
-##' @seealso This function is called internally by \code{\link{generateRasters}}.
 ##'
 ##' @examples
 ##' \donttest{
@@ -66,14 +59,14 @@
 ##' # create stack of temperature and precipitation rasters
 ##' # and stack of solar radiation rasters
 ##' solradFiles <- grep('solrad', rasterFiles, value=TRUE)
-##' worldclim <- stack(setdiff(rasterFiles, solradFiles))
-##' solar <- stack(solradFiles)
+##' worldclim <- rast(setdiff(rasterFiles, solradFiles))
+##' solar <- rast(solradFiles)
 ##'
 ##' # set up naming scheme - only precip is different from default
 ##' assignNames(precip = 'prec_##')
 ##' 
 ##' # generate all possible envirem variables
-##' layerCreation(worldclim, solar, var='all', tempScale = 10)
+##' generateEnvirem(worldclim, solar, var='all', tempScale = 10)
 ##'
 ##' # set back to defaults
 ##' assignNames(reset = TRUE)
@@ -86,11 +79,11 @@
 # Function takes stack of precip, mintemp, maxtemp, bioclim, and a stack of solar radiation, and generates rasterstack of new variables
 # var is a vector of variable names that will be generated. 
 
-layerCreation <- function(masterstack, solradstack = NULL, var, tempScale = 1, precipScale = 1) {
+generateEnvirem <- function(masterstack, solradstack = NULL, monthPET = NULL, var, tempScale = 1, precipScale = 1) {
 
 	allvar <- c("annualPET", "aridityIndexThornthwaite", "climaticMoistureIndex", "continentality", "embergerQ", "growingDegDays0", "growingDegDays5", "maxTempColdest", "minTempWarmest", "meanTempColdest", "meanTempWarmest", "monthCountByTemp10", "PETColdestQuarter", "PETDriestQuarter", "PETseasonality", "PETWarmestQuarter", "PETWettestQuarter", "thermicityIndex")
 
-	if (class(var) == 'character') {
+	if (inherits(var, 'character')) {
 		if (length(var) == 1) {
 			if (var == 'all') {
 				var <- allvar
@@ -115,7 +108,7 @@ layerCreation <- function(masterstack, solradstack = NULL, var, tempScale = 1, p
 	if (needsSolRad) {
 		check <- verifyRasterNames(masterstack, solradstack, returnRasters = TRUE)
 		solradstack <- check[[grep(paste0(.var$solrad, '\\d\\d?', .var$solrad_post), names(check))]]
-		masterstack <- raster::dropLayer(check, names(solradstack))
+		masterstack <- terra::subset(check, names(solradstack), negate = TRUE)
 	} else {
 		check <- verifyRasterNames(masterstack, returnRasters = TRUE)
 		masterstack <- check	
@@ -159,6 +152,11 @@ layerCreation <- function(masterstack, solradstack = NULL, var, tempScale = 1, p
 		}
 	}
 	
+	# if monthly PET provided, enforce ordering
+	if (!is.null(monthPET)) {
+		monthPET <- monthPET[[order(as.numeric(gsub(paste0(.var$pet, '([0-9]+)', .var$pet_post), "\\1", names(monthPET))))]]
+	}
+	
 	# Bioclim variables 1, 5, 6, 12 are used for some of the ENVIREM variables.
 	# Calculate those that are needed for the requested variables. 
 	bioclimstack <- vector('list', length = 4)
@@ -166,22 +164,26 @@ layerCreation <- function(masterstack, solradstack = NULL, var, tempScale = 1, p
 	message('\t\t...calculating necessary bioclim variables...')
 	if ('thermicityIndex' %in% var) {
 		# bio1 needed: annual mean temperature
-		bioclimstack[['bio1']] <- raster::calc(tmeanstack, fun = mean)
+		bioclimstack[['bio1']] <- terra::app(tmeanstack, fun = mean)
+		names(bioclimstack[['bio1']]) <- 'bio1'
 	}
 	if ('embergerQ' %in% var) {
 		# bio5 needed: max temp of the warmest month
-		bioclimstack[['bio5']] <- raster::calc(tmaxstack, fun = max)
+		bioclimstack[['bio5']] <- terra::app(tmaxstack, fun = max)
+		names(bioclimstack[['bio5']]) <- 'bio5'
 	}
 	if (any(c('thermicityIndex', 'embergerQ') %in% var)) {
 		# bio6 needed: min temp of the coldest month
-		bioclimstack[['bio6']] <- raster::calc(tminstack, fun = min)
+		bioclimstack[['bio6']] <- terra::app(tminstack, fun = min)
+		names(bioclimstack[['bio6']]) <- 'bio6'
 	}
 	if (any(c('embergerQ', 'climaticMoistureIndex') %in% var)) {
 		# bio12 needed: annual precipitation
-		bioclimstack[['bio12']] <- raster::calc(precipstack, fun = sum)
+		bioclimstack[['bio12']] <- terra::app(precipstack, fun = sum)
+		names(bioclimstack[['bio12']]) <- 'bio12'
 	}
 	if (any(c('thermicityIndex', 'embergerQ', 'climaticMoistureIndex') %in% var)) {
-		bioclimstack <- raster::stack(bioclimstack[!sapply(bioclimstack, is.null)])
+		bioclimstack <- terra::rast(bioclimstack[!sapply(bioclimstack, is.null)])
 	}
 				
 	if (any(c('minTempWarmest', 'maxTempColdest', 'meanTempWarmest', 'meanTempColdest', 'thermicityIndex', 'continentality') %in% var)) {
@@ -243,7 +245,7 @@ layerCreation <- function(masterstack, solradstack = NULL, var, tempScale = 1, p
 	}
 
 	#annual potential evapotranspiration
-	if (any(solradVar %in% var)) {
+	if (any(solradVar %in% var) & is.null(monthPET)) {
 		monthPET <- monthlyPET(Tmean = tmeanstack, RA = solradstack, TD = abs(tmaxstack - tminstack))
 	}
 
@@ -310,6 +312,7 @@ layerCreation <- function(masterstack, solradstack = NULL, var, tempScale = 1, p
 		reslist[['meanTempColdest']] <- reslist[['meanTempColdest']] * tempScale
 	}
 
-	reslist <- raster::stack(reslist)
+	reslist <- terra::rast(reslist)
+	reslist <- reslist[[var]]
 	return(reslist)
 }
