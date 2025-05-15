@@ -2,8 +2,8 @@
 % Please edit documentation in R/envirem-package.R
 \docType{package}
 \name{envirem}
-\alias{envirem}
 \alias{envirem-package}
+\alias{envirem}
 \title{envirem}
 \description{
 Generation of bioclimatic rasters that are complementary to the typical 19 bioclim variables.
